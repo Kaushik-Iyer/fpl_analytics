@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @teams.each do |team| %>
+          <tr>
+            <td><%= team.name %></td>
+            <td><%= team.points %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
