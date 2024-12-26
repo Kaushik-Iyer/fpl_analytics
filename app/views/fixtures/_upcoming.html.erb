@@ -1,0 +1,23 @@
+<turbo-frame id="row1col3">
+  <div class="bg-white shadow-md rounded p-4">
+    <h2 class="text-lg font-bold mb-2">Upcoming Fixtures</h2>
+    <table class="table-auto w-full">
+      <thead>
+        <tr>
+          <th class="px-4 py-2">Date</th>
+          <th class="px-4 py-2">Home</th>
+          <th class="px-4 py-2">Away</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% fixtures.each do |fixture| %>
+          <tr>
+            <td class="border px-4 py-2"><%= fixture.kickoff_time.strftime("%d %b %H:%M") %></td>
+            <td class="border px-4 py-2"><%= fixture.home_team.name %></td>
+            <td class="border px-4 py-2"><%= fixture.away_team.name %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</turbo-frame>

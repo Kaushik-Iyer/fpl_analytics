@@ -1,0 +1,21 @@
+<turbo-frame id="row1col2">
+    <div class="bg-white shadow-md rounded p-4">
+    <h2 class="text-lg font-bold mb-2">Top 10 Scorers</h2>
+    <table class="table-auto w-full">
+        <thead>
+        <tr>
+            <th class="px-4 py-2">Name</th>
+            <th class="px-4 py-2">Total Points</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% players.each do |player| %>
+            <tr>
+            <td class="border px-4 py-2"><%= player.web_name %></td>
+            <td class="border px-4 py-2"><%= player.total_points %></td>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>
+    </div>
+</turbo-frame>

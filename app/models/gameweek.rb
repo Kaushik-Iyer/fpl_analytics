@@ -5,6 +5,18 @@ class Gameweek < ApplicationRecord
     validates :name, presence: true
     validates :deadline_time, presence: true
 
+    def most_selected_player
+        Player.find(self.most_selected)
+    end
+
+    def most_transferred_in_player
+        Player.find(self.most_transferred_in)
+    end
+
+    def best_player
+        Player.find(self.top_element)
+    end
+
 end
 
 

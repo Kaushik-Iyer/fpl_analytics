@@ -1,0 +1,20 @@
+<div data-controller="autocomplete"
+class="relative">
+<input type="text"
+data-autocomplete-target="input"
+data-action="input->autocomplete#search"
+class="w-full p-2 border rounded"
+placeholder="Search for a player">
+
+<div data-autocomplete-target="results"
+class="absolute w-full bg-white border rounded mt-1 hidden">
+</div>
+</div>
+
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div id="player_performance" class="bg-white p-4 rounded shadow">
+</div>
+
+<div id="price_chart" class="bg-white p-4 rounded shadow">
+</div>
+</div>

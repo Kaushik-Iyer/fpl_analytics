@@ -5,15 +5,56 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    
+    <!-- ...existing code... -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
+  <body class="bg-gray-100">
+    <main class="container mx-auto p-4">
+      <!-- A grid with 3 columns and multiple rows -->
+      <div class="grid grid-cols-3 gap-4">
+        
+        <!-- Row 1, Column 1: Teams Standings -->
+        <turbo-frame id="row1col1" src="<%= teams_standings_path %>">
+          <!-- Optional: Loader or Placeholder -->
+          <div class="bg-white shadow-md rounded p-4">
+            <p>Loading Teams...</p>
+          </div>
+        </turbo-frame>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
+        <!-- Row 1, Column 2: Top Performers -->
+        <turbo-frame id="row1col2" src="<%= players_top_performers_path %>">
+          <div class="bg-white shadow-md rounded p-4">
+            <p>Loading Top Performers...</p>
+          </div>
+        </turbo-frame>
+
+        <!-- Row 1, Column 3: Upcoming Fixtures -->
+        <turbo-frame id="row1col3" src="<%= fixtures_upcoming_path %>">
+          <div class="bg-white shadow-md rounded p-4">
+            <p>Loading Upcoming Fixtures...</p>
+          </div>
+        </turbo-frame>
+
+        <!-- Player Performance Analysis -->
+        <turbo-frame id="row2col1">
+          <div class="bg-white p-4 rounded-lg shadow" data-controller="autocomplete">
+            <input type="text" id="player-search-input" placeholder="Search for a player..." class="w-full p-2 border rounded" data-autocomplete-target="input" data-action="input->autocomplete#search">
+            <div id="player-search-results" data-autocomplete-target="results" class="absolute w-full bg-white border rounded mt-1 hidden"></div>
+          </div>
+        </turbo-frame>
+
+        <turbo-frame id="row2col2">
+          <div class="grid grid-cols-2 gap-4 mt-4">
+            <div id="player_performance" class="bg-white p-4 rounded shadow">
+              <p>Select a player to see performance data and price chart</p>
+            </div>
+          </div>
+        </turbo-frame>
+      </div>
     </main>
   </body>
 </html>

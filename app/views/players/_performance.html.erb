@@ -1,0 +1,11 @@
+<turbo-frame id="player-performance">
+  <div class="bg-white shadow-md rounded p-4" 
+       data-controller="player-charts"
+       data-player-charts-labels-value="<%= @stats.map(&:gameweek_id).reverse.to_json %>"
+       data-player-charts-points-value="<%= @stats.map(&:total_points).reverse.to_json %>"
+       data-player-charts-values-value="<%= @stats.map(&:value).reverse.to_json %>">
+    <h2 class="text-lg font-bold mb-2"><%= @player.web_name %> - Last 5 Gameweeks</h2>
+    <canvas data-player-charts-target="points" width="400" height="200"></canvas>
+    <canvas data-player-charts-target="value" width="400" height="200"></canvas>
+  </div>
+</turbo-frame>

@@ -1,0 +1,22 @@
+<!-- app/views/teams/_standings.html.erb -->
+<turbo-frame id="row1col1">
+<div class="bg-white shadow-md rounded p-4">
+  <h2 class="text-lg font-bold mb-2">Teams</h2>
+  <table class="table-auto w-full">
+    <thead>
+      <tr>
+        <th class="px-4 py-2">Name</th>
+        <th class="px-4 py-2">Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% teams.each do |team| %>
+        <tr>
+          <td class="border px-4 py-2"><%= team.name %></td>
+          <td class="border px-4 py-2"><%= team.points %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+</turbo-frame>

@@ -1,0 +1,18 @@
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+  <!-- League Standings -->
+  <%= turbo_frame_tag "league_standings", src:  teams_standings_path  do %>
+    <div class="animate-pulse bg-white p-4 rounded-lg">Loading...</div>
+  <% end %>
+
+  <!-- Top Performers -->
+  <%= turbo_frame_tag "top_performers", src: players_top_performers_path do %>
+        <div class="animate-pulse bg-white p-4 rounded-lg">Loading...</div>
+  <% end %>
+
+  <!-- Upcoming Fixtures -->
+  <%= turbo_frame_tag "upcoming_fixtures", src: fixtures_upcoming_path  do %>
+        <div class="animate-pulse bg-white p-4 rounded-lg">Loading...</div>
+  <% end %>
+
+</div>
