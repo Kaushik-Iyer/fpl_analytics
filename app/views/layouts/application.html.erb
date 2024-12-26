@@ -42,7 +42,7 @@
         <!-- Player Performance Analysis -->
         <turbo-frame id="row2col1">
           <div class="bg-white p-4 rounded-lg shadow" data-controller="autocomplete">
-            <input type="text" id="player-search-input" placeholder="Search for a player..." class="w-full p-2 border rounded" data-autocomplete-target="input" data-action="input->autocomplete#search">
+            <input type="text" id="player-search-input" placeholder="Search for a player..." class="w-full p-2 border rounded" data-autocomplete-target="input" data-action="input->autocomplete#search keydown->autocomplete#navigate">
             <div id="player-search-results" data-autocomplete-target="results" class="absolute w-full bg-white border rounded mt-1 hidden"></div>
           </div>
         </turbo-frame>
