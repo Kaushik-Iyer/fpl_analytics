@@ -1,0 +1,46 @@
+<turbo-frame id="row2col3"> 
+<div class="bg-white shadow-md rounded p-4" 
+     data-controller="form-charts"
+     data-form-charts-top-scorers-value="<%= @top_scorers.map { |player| player.attributes.merge(points_history: player.points_history) }.to_json %>"
+     data-form-charts-price-risers-value="<%= @price_risers.map { |player| player.attributes.merge(value_history: player.value_history) }.to_json %>"
+     data-form-charts-gameweeks-value="<%= (Gameweek.current_gameweek.id-5..Gameweek.current_gameweek.id-1).to_a.to_json %>"
+     data-form-charts-selected-position-value="<%= position_id %>"
+     data-form-charts-selected-team-value="<%= team_id %>">
+  
+    <div class="mb-4">
+      <h2 class="text-lg font-bold mb-2">Top Form Players</h2>
+      <div class="flex space-x-4">
+        <select data-form-charts-target="positionSelect"
+                data-action="change->form-charts#filter"
+                class="rounded border p-1">
+          <option value="" <%= 'selected' if position_id.blank? %>>All Positions</option>
+          <option value="4" <%= 'selected' if position_id == '4' %>>Forwards</option>
+          <option value="3" <%= 'selected' if position_id == '3' %>>Midfielders</option>
+          <option value="2" <%= 'selected' if position_id == '2' %>>Defenders</option>
+          <option value="1" <%= 'selected' if position_id == '1' %>>Goalkeepers</option>
+        </select>
+        
+        <select data-form-charts-target="teamSelect"
+                data-action="change->form-charts#filter"
+                class="rounded border p-1">
+          <option value="" <%= 'selected' if team_id.blank? %>>All Teams</option>
+          <% Team.all.each do |team| %>
+            <option value="<%= team.id %>" <%= 'selected' if team_id == team.id.to_s %>><%= team.name %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+
+  <div class="grid grid-cols-1 gap-4">
+    <div>
+      <h3 class="font-semibold mb-2">Most Points scored across previous 5 Gameweeks</h3>
+      <canvas data-form-charts-target="points"></canvas>
+    </div>
+    
+    <div>
+      <h3 class="font-semibold mb-2" >Biggest price changes across previous 5 Gameweeks</h3>
+      <canvas data-form-charts-target="value"></canvas>
+    </div>
+  </div>
+</div>
+</turbo-frame>

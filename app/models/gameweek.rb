@@ -17,6 +17,10 @@ class Gameweek < ApplicationRecord
         Player.find(self.top_element)
     end
 
+    def self.current_gameweek
+        Gameweek.where(finished: false).first
+    end
+
 end
 
 

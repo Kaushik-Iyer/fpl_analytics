@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   get 'fixtures/upcoming', to: 'fixtures#upcoming'
   get 'players/search', to: 'players#search'
   get 'players/performance', to: 'players#performance'
+  get 'players/in_form_players', to: 'players#in_form_players'
+  get 'players/in_form_filter', to: 'players#in_form_filter'
 end

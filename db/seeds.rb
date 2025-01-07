@@ -1,7 +1,62 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+Position.create([
+  {
+    id: 1,
+    plural_name: "Goalkeepers",
+    plural_name_short: "GKP",
+    singular_name: "Goalkeeper",
+    singular_name_short: "GKP",
+    squad_select: 2,
+    squad_min_select: nil,
+    squad_max_select: nil,
+    squad_min_play: 1,
+    squad_max_play: 1,
+    ui_shirt_specific: true,
+    sub_positions_locked: [12],
+    element_count: 72
+  },
+  {
+    id: 2,
+    plural_name: "Defenders",
+    plural_name_short: "DEF",
+    singular_name: "Defender",
+    singular_name_short: "DEF",
+    squad_select: 5,
+    squad_min_select: nil,
+    squad_max_select: nil,
+    squad_min_play: 3,
+    squad_max_play: 5,
+    ui_shirt_specific: false,
+    sub_positions_locked: [],
+    element_count: 234
+  },
+  {
+    id: 3,
+    plural_name: "Midfielders",
+    plural_name_short: "MID",
+    singular_name: "Midfielder",
+    singular_name_short: "MID",
+    squad_select: 5,
+    squad_min_select: nil,
+    squad_max_select: nil,
+    squad_min_play: 2,
+    squad_max_play: 5,
+    ui_shirt_specific: false,
+    sub_positions_locked: [],
+    element_count: 319
+  },
+  {
+    id: 4,
+    plural_name: "Forwards",
+    plural_name_short: "FWD",
+    singular_name: "Forward",
+    singular_name_short: "FWD",
+    squad_select: 3,
+    squad_min_select: nil,
+    squad_max_select: nil,
+    squad_min_play: 1,
+    squad_max_play: 3,
+    ui_shirt_specific: false,
+    sub_positions_locked: [],
+    element_count: 76
+  }
+])

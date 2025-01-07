@@ -9,29 +9,18 @@ class Team < ApplicationRecord
     def fixtures
         Fixture.where('team_h = ? OR team_a = ?', self.id, self.id)
     end
-end
 
-# example of team response in api
-# {
-#     "code": 3,
-#     "draw": 0,
-#     "form": null,
-#     "id": 1,
-#     "loss": 0,
-#     "name": "Arsenal",
-#     "played": 0,
-#     "points": 0,
-#     "position": 0,
-#     "short_name": "ARS",
-#     "strength": 4,
-#     "team_division": null,
-#     "unavailable": false,
-#     "win": 0,
-#     "strength_overall_home": 1250,
-#     "strength_overall_away": 1360,
-#     "strength_attack_home": 1260,
-#     "strength_attack_away": 1370,
-#     "strength_defence_home": 1240,
-#     "strength_defence_away": 1350,
-#     "pulse_id": 1
-# }
+    def self.update_points
+        Team.all.each do |team|
+            fixtures = team.fixtures.where(finished: true)
+            points = fixtures.sum do |fixture|
+                if fixture.team_h == team.id
+                    fixture.team_h_score > fixture.team_a_score ? 3 : fixture.team_h_score == fixture.team_a_score ? 1 : 0
+                else
+                    fixture.team_a_score > fixture.team_h_score ? 3 : fixture.team_a_score == fixture.team_h_score ? 1 : 0
+                end
+            end
+            team.update(points: points)
+        end
+    end
+end

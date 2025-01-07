@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_12_24_030317) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_27_012524) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -110,7 +110,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_24_030317) do
     t.string "second_name"
     t.string "web_name"
     t.bigint "team_id", null: false
-    t.integer "element_type"
+    t.integer "position_id"
     t.decimal "now_cost"
     t.integer "total_points"
     t.integer "goals_scored"
@@ -128,6 +128,23 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_24_030317) do
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
+  create_table "positions", force: :cascade do |t|
+    t.string "plural_name"
+    t.string "plural_name_short"
+    t.string "singular_name"
+    t.string "singular_name_short"
+    t.integer "squad_select"
+    t.integer "squad_min_select"
+    t.integer "squad_max_select"
+    t.integer "squad_min_play"
+    t.integer "squad_max_play"
+    t.boolean "ui_shirt_specific"
+    t.json "sub_positions_locked"
+    t.integer "element_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "teams", force: :cascade do |t|
     t.string "name", null: false
     t.string "short_name", null: false
@@ -140,7 +157,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_24_030317) do
     t.string "strength_defence_home"
     t.string "strength_defence_away"
     t.string "played"
-    t.string "points"
+    t.integer "points"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

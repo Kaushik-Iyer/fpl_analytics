@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  plural_name: MyString
+  plural_name_short: MyString
+  singular_name: MyString
+  singular_name_short: MyString
+  squad_select: 1
+  squad_min_select: 1
+  squad_max_select: 1
+  squad_min_play: 1
+  squad_max_play: 1
+  ui_shirt_specific: false
+  sub_positions_locked: 
+  element_count: 1
+
+two:
+  id: 1
+  plural_name: MyString
+  plural_name_short: MyString
+  singular_name: MyString
+  singular_name_short: MyString
+  squad_select: 1
+  squad_min_select: 1
+  squad_max_select: 1
+  squad_min_play: 1
+  squad_max_play: 1
+  ui_shirt_specific: false
+  sub_positions_locked: 
+  element_count: 1
