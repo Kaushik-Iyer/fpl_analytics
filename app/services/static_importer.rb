@@ -1,5 +1,5 @@
-# app/services/local_importer.rb
-class LocalImporter
+# app/services/static_importer.rb
+class StaticImporter
 
   def self.chips_import
     response= HTTP.get("https://fantasy.premierleague.com/api/bootstrap-static/")

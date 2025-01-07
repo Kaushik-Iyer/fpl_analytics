@@ -6,9 +6,18 @@ class PlayersController < ApplicationController
   end
 
   def search
-    query = "%#{params[:query]}%"
-    @players = Player.where("players.web_name LIKE ? OR players.first_name LIKE ? OR players.second_name LIKE ?", query, query, query).limit(10)
-    render partial: "players/search_results", locals: { players: @players }, layout: false
+    query = params[:query].downcase
+    @players = Player.where(
+      "LOWER(web_name) LIKE :query OR 
+       LOWER(first_name) LIKE :query OR 
+       LOWER(second_name) LIKE :query OR
+       LOWER(CONCAT(first_name, ' ', second_name)) LIKE :query",
+      query: "%#{query}%"
+    ).limit(10)
+    
+    render partial: "players/search_results", 
+           locals: { players: @players }, 
+           layout: false
   end
 
   def performance

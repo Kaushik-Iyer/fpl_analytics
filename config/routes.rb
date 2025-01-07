@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -12,4 +14,11 @@ Rails.application.routes.draw do
   get 'players/performance', to: 'players#performance'
   get 'players/in_form_players', to: 'players#in_form_players'
   get 'players/in_form_filter', to: 'players#in_form_filter'
+  get 'managers/show', to: 'managers#show'
+
+  # Mount the Sidekiq web UI at /sidekiq
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == 'admin' && password == 'password'
+  end
+  mount Sidekiq::Web, at: '/sidekiq'
 end
