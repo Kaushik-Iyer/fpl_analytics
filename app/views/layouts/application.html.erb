@@ -1,3 +1,4 @@
+<!-- filepath: /home/kaushik/fpl_analytics/app/views/layouts/application.html.erb -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,7 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     
@@ -43,13 +44,13 @@
         <turbo-frame id="row2col1">
           <div class="bg-white p-4 rounded-lg shadow" data-controller="autocomplete">
             <input type="text" id="player-search-input" placeholder="Search for a player..." class="w-full p-2 border rounded" data-autocomplete-target="input" data-action="input->autocomplete#search keydown->autocomplete#navigate">
-            <div id="player-search-results" data-autocomplete-target="results" class="absolute w-full bg-white border rounded mt-1 hidden"></div>
+            <div id="player-search-results" data-autocomplete-target="results" class="relative w-full bg-white border rounded mt-1"></div>
           </div>
         </turbo-frame>
 
-        <turbo-frame id="row2col2">
+        <turbo-frame id="row2col2" class="col-span-1">
           <div class="grid grid-cols-2 gap-4 mt-4">
-            <div id="player_performance" class="bg-white p-4 rounded shadow">
+            <div id="player_performance" class="bg-white p-4 rounded shadow col-span-2">
               <p>Select a player to see performance data and price chart</p>
             </div>
           </div>
