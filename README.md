@@ -22,3 +22,17 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+Commands to run in local/production based on what code is being changed:
+
+General production commands:
+`su - rails`
+`systemctl restart rails.service`
+`systemctl daemon-reload`
+
+(Source: https://marketplace.digitalocean.com/apps/ruby-on-rails?ipAddress=159.65.164.43#getting-started)
+
+1. if changing css, run `rails assets:precompile`
+
+2. If changing database, `rails db:migrate`

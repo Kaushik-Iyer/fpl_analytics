@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_12_27_012524) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_10_030729) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "vector"
 
   create_table "chips", force: :cascade do |t|
     t.string "name"
@@ -125,6 +126,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_27_012524) do
     t.float "selected_by_percent"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.halfvec "embedding", limit: 768
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
@@ -160,6 +162,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_27_012524) do
     t.integer "points"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.halfvec "embedding", limit: 768
   end
 
   add_foreign_key "gameweek_stats", "gameweeks"

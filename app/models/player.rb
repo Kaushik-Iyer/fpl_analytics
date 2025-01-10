@@ -23,4 +23,9 @@ class Player < ApplicationRecord
       gameweek_stats.find_by(gameweek: gameweek)&.value || nil
     end
   end
+
+  # create vector embedding for player using gemini api
+  def create_embedding
+    
+  end
 end
