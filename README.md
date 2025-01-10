@@ -36,12 +36,3 @@ General production commands:
 1. if changing css, run `rails assets:precompile`
 
 2. If changing database, `rails db:migrate`
-
-
-
-
-Azure credentials:
-
-Psql database
-admin: kaushik
-password: fpl@2025
