@@ -3,6 +3,11 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
     static targets = ["input", "response", "toggle", "window"]
 
+    clearChat() {
+        this.responseTarget.innerHTML = ''
+        this.chatHistory = []
+    }
+
     connect() {
         this.chatHistory = []
     }
@@ -44,8 +49,8 @@ export default class extends Controller {
 
         const bubble = document.createElement('div')
         bubble.className = `inline-block p-2 rounded-lg ${sender === 'user'
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-200 text-gray-800'
+            ? 'bg-blue-600 text-white'
+            : 'bg-gray-200 text-gray-800'
             }`
         bubble.textContent = message
 
