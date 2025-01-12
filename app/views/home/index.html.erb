@@ -28,16 +28,3 @@
             <p>Lookup a manager to see their team</p>
           </div>
         </turbo-frame>
-
-        <!-- Chatbot -->
-        <turbo-frame id="row3col2">
-          <div data-controller="chat" class="bg-white shadow-md rounded p-4">
-            <h2>Chatbot</h2>
-            <form data-action="submit->chat#submit">
-              <input data-chat-target="input" type="text" placeholder="Ask a question..." class="w-full p-2 border rounded" />
-              <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 
-                         transition duration-150 ease-in-out shadow-sm">Submit</button>
-            </form>
-            <div data-chat-target="response" class="mt-4"></div>
-          </div>
-        </turbo-frame>

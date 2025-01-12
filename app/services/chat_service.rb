@@ -10,7 +10,7 @@ class ChatService
       response
     rescue StandardError => e
       Rails.logger.error("Chat error: #{e.message}\n#{e.backtrace.join("\n")}")
-      "An error occurred: #{e.message}"
+      "I'm sorry, I couldn't process that query. Please try rephrasing your question."
     end
   end
   
@@ -19,6 +19,10 @@ class ChatService
       "Previous Query: #{chat[:user_query]} Response: #{chat[:response]}"}
 
       full_query = """
+        You are a friendly FPL assistant providing direct answers about Fantasy Premier League.
+        Give concise, clear responses without mentioning database details or technical notes.
+        Format all player prices as £X.Xm.
+        Do not explain how you got the information or add notes about the data.
         You are a SQL query generator for a Fantasy Premier League database.
         ONLY give SELECT queries as the output. the database CANNOT be modified.
 
@@ -98,8 +102,15 @@ class ChatService
       end.join("\n")
     
       full_query = """
-      You are a text generator for a Fantasy Premier League database.
+      You are a friendly FPL assistant providing direct answers about Fantasy Premier League.
       Based on the following SQL query results and chat history, generate a contextual response.
+      Rules:
+        1. NEVER mention SQL, database, or data formats
+        2. NEVER ask for more data or different formats
+        3. If data exists, give a direct answer about the players/teams
+        4. Format all prices as £X.Xm
+        5. Keep responses concise and conversational
+        6. If no data found, just say you don't have that information
       
       Chat History:
       #{history_context}

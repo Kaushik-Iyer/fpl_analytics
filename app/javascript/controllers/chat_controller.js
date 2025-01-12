@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { marked } from 'marked'
 
 export default class extends Controller {
     static targets = ["input", "response", "toggle", "window"]
@@ -52,8 +53,11 @@ export default class extends Controller {
             ? 'bg-blue-600 text-white'
             : 'bg-gray-200 text-gray-800'
             }`
-        bubble.textContent = message
-
+        if (sender === 'bot') {
+            bubble.innerHTML = marked.parse(message)
+        } else {
+            bubble.textContent = message
+        }
         messageDiv.appendChild(bubble)
         this.responseTarget.appendChild(messageDiv)
 
