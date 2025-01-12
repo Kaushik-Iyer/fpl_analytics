@@ -1,7 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-    static targets = ["input", "response"]
+    static targets = ["input", "response", "toggle", "window"]
+
+    toggleChat() {
+        this.windowTarget.classList.toggle("hidden")
+    }
 
     connect() {
         // Called when the controller is connected to the DOM
