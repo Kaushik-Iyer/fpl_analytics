@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get 'players/in_form_filter', to: 'players#in_form_filter'
   get 'managers/show', to: 'managers#show'
   post 'chat/respond', to: 'chat#respond'
+  get 'players/unavailable', to: 'players#unavailable'
 
   # Mount the Sidekiq web UI at /sidekiq
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|

@@ -79,4 +79,13 @@ class PlayersController < ApplicationController
     end
   end
 
+  def unavailable
+    @unavailable_players = Player.where("status != ?", "a")
+                                .includes(:team)
+                                .order(total_points: :desc)
+                                .page(params[:page])
+                                .per(10)
+    render partial: 'players/unavailable_players', 
+           locals: { players: @unavailable_players }
+  end
 end
