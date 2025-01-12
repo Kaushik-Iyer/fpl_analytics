@@ -1,5 +1,6 @@
-class UpdatePlayersJob < ApplicationJob
-    queue_as :default
+class UpdatePlayersJob
+    include Sidekiq::Worker
+    sidekiq_options queue: 'default'
 
     def perform
         StaticImporter.players_import

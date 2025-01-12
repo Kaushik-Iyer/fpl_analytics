@@ -1,5 +1,6 @@
-class UpdateGameweeksJob < ApplicationJob
-    queue_as :default
+class UpdateGameweeksJob
+    include Sidekiq::Worker
+    sidekiq_options queue: 'default'
 
     def perform
         StaticImporter.gameweeks_import

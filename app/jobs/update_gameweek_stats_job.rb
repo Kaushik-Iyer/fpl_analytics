@@ -1,5 +1,6 @@
-class UpdateGameweekStatsJob < ApplicationJob
-  queue_as :default
+class UpdateGameweekStatsJob
+  include Sidekiq::Worker
+  sidekiq_options queue: 'default'
 
   def perform(player_id)
     GameweekStatsImporter.import_for_player(player_id)
