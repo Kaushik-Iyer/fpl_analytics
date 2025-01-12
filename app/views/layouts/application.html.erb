@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>FplAnalytics</title>
+    <title><%= yield :title %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -15,74 +15,12 @@
   </head>
   <body class="bg-gray-100">
     <main class="container mx-auto p-4">
+      <%= render "shared/header" %>
       <!-- A grid with 3 columns and multiple rows -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        
-        <!-- Row 1, Column 1: Teams Standings -->
-        <turbo-frame id="row1col1" src="<%= teams_standings_path %>">
-          <!-- Optional: Loader or Placeholder -->
-          <div class="bg-white shadow-md rounded p-4">
-            <p>Loading Teams...</p>
-          </div>
-        </turbo-frame>
-
-        <!-- Row 1, Column 2: Top Performers -->
-        <turbo-frame id="row1col2" src="<%= players_top_performers_path %>">
-          <div class="bg-white shadow-md rounded p-4">
-            <p>Loading Top Performers...</p>
-          </div>
-        </turbo-frame>
-
-        <!-- Row 1, Column 3: Upcoming Fixtures -->
-        <turbo-frame id="row1col3" src="<%= fixtures_upcoming_path %>">
-          <div class="bg-white shadow-md rounded p-4">
-            <p>Loading Upcoming Fixtures...</p>
-          </div>
-        </turbo-frame>
-
-        <!-- Player Performance Analysis -->
-        <turbo-frame id="row2col1">
-          <div class="bg-white p-4 rounded-lg shadow" data-controller="autocomplete">
-            <input type="text" id="player-search-input" placeholder="Search for a player..." class="w-full p-2 border rounded" data-autocomplete-target="input" data-action="input->autocomplete#search keydown->autocomplete#navigate">
-            <div id="player-search-results" data-autocomplete-target="results" class="relative w-full bg-white border rounded mt-1"></div>
-          </div>
-        </turbo-frame>
-
-        <turbo-frame id="row2col2" class="col-span-1">
-          <div class="grid grid-cols-2 gap-4 mt-4">
-            <div id="player_performance" class="bg-white p-4 rounded shadow col-span-2">
-              <p>Select a player to see performance data and price chart</p>
-            </div>
-          </div>
-        </turbo-frame>
-
-        <!-- Form Charts -->
-        <turbo-frame id="row2col3" src="<%= players_in_form_players_path %>">
-          <div class="bg-white shadow-md rounded p-4">
-            <p>Loading Form Charts...</p>
-          </div>
-        </turbo-frame>
-
-        <!-- Manager Lookup -->
-        <turbo-frame id="row3col1" src="<%= managers_show_path %>">
-          <div class="bg-white shadow-md rounded p-4">
-            <p>Lookup a manager to see their team</p>
-          </div>
-        </turbo-frame>
-
-        <!-- Chatbot -->
-        <turbo-frame id="row3col2">
-          <div data-controller="chat" class="bg-white shadow-md rounded p-4">
-            <h2>Chatbot</h2>
-            <form data-action="submit->chat#submit">
-              <input data-chat-target="input" type="text" placeholder="Ask a question..." class="w-full p-2 border rounded" />
-              <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 
-                         transition duration-150 ease-in-out shadow-sm">Submit</button>
-            </form>
-            <div data-chat-target="response" class="mt-4"></div>
-          </div>
-        </turbo-frame>
+      <%= yield %>
       </div>
+      <%= render "shared/footer" %>
     </main>
   </body>
 </html>
