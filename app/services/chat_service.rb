@@ -1,62 +1,75 @@
 class ChatService
-    def self.respond(user_query)
-      sql_query = generate_sql_query(user_query)
+    @@chat_history = []
+
+  def self.respond(user_query)
+    begin
+      sql_query = generate_sql_query(user_query, @@chat_history)
       sql_results = execute_sql_query(sql_query)
-      generate_text_response(user_query, sql_results)
+      response = generate_text_response(user_query, sql_results, @@chat_history)
+      @@chat_history << { user_query: user_query, response: response }
+      response
     rescue StandardError => e
-      "An error occurred"
+      Rails.logger.error("Chat error: #{e.message}\n#{e.backtrace.join("\n")}")
+      "An error occurred: #{e.message}"
     end
+  end
   
-    def self.generate_sql_query(user_query)
+    def self.generate_sql_query(user_query, chat_history)
+      history_context = chat_history.map{ |chat|
+      "Previous Query: #{chat[:user_query]} Response: #{chat[:response]}"}
+
       full_query = """
-  You are a SQL query generator for a Fantasy Premier League database.
-  ONLY give SELECT queries as the output. the database CANNOT be modified.
-  
-  Relevant tables and their important columns:
-  
-  teams:
-  - id: integer (primary key)
-  - name: string (team name)
-  - points: integer (current season points)
-  - strength_overall_home: string (home performance rating)
-  - strength_overall_away: string (away performance rating)
-  
-  players:
-  - id: integer (primary key)
-  - web_name: string (display name)
-  - team_id: integer (foreign key to teams)
-  - total_points: integer (FPL points)
-  - goals_scored: integer
-  - assists: integer
-  - form: float (current form rating)
+        You are a SQL query generator for a Fantasy Premier League database.
+        ONLY give SELECT queries as the output. the database CANNOT be modified.
 
-  fixtures:
-  - id: integer (primary key)
-  - code: integer
-  - event: integer
-  - finished: boolean
-  - team_h_score: integer
-  - team_a_score: integer
+        Chat History:
+        #{history_context.join("\n")}
+        
+        Relevant tables and their important columns:
+        
+        teams:
+        - id: integer (primary key)
+        - name: string (team name)
+        - points: integer (current season points)
+        - strength_overall_home: string (home performance rating)
+        - strength_overall_away: string (away performance rating)
+        
+        players:
+        - id: integer (primary key)
+        - web_name: string (display name)
+        - team_id: integer (foreign key to teams)
+        - total_points: integer (FPL points)
+        - goals_scored: integer
+        - assists: integer
+        - form: float (current form rating)
 
-  gameweek_stats:
-  - id: integer (primary key)
-  - player_id: integer
-  - gameweek_id: integer
-  - minutes: integer
-  - goals_scored: integer
-  - assists: integer
-  - total_points: integer
-  - expected_goals: float
-  - expected_assists: float
+        fixtures:
+        - id: integer (primary key)
+        - code: integer
+        - event: integer
+        - finished: boolean
+        - team_h_score: integer
+        - team_a_score: integer
 
-  positions:
-    - id: integer (primary key)
-    - plural_name: string
+        gameweek_stats:
+        - id: integer (primary key)
+        - player_id: integer
+        - gameweek_id: integer
+        - minutes: integer
+        - goals_scored: integer
+        - assists: integer
+        - total_points: integer
+        - expected_goals: float
+        - expected_assists: float
 
-  User Query: #{user_query}
-  
-  Generate a SQL query that answers this question by selecting all fields and applying the necessary conditions.
-  """
+        positions:
+          - id: integer (primary key)
+          - plural_name: string
+
+        User Query: #{user_query}
+        
+        Generate a SQL query that answers this question by selecting all fields and applying the necessary conditions.
+      """
     
       result = GeminiClient::CHAT_CLIENT.generate_content({contents: {role: 'user', parts: {text: full_query}}})
       sql_query = result['candidates'].first['content']['parts'].first['text'].strip
@@ -76,17 +89,23 @@ class ChatService
       raise "Failed to execute SQL query: #{e.message}"
     end
   
-    def self.generate_text_response(user_query, sql_results)
+    def self.generate_text_response(user_query, sql_results, chat_history)
+      history_context = chat_history.map do |chat|
+        "Previous Query: #{chat[:user_query]} Response: #{chat[:response]}"
+      end
       results_text = sql_results.map do |result|
         result.map { |key, value| "#{key}: #{value}" }.join(', ')
       end.join("\n")
     
       full_query = """
       You are a text generator for a Fantasy Premier League database.
-      Based on the following SQL query results, generate a text response that answers the user's query. Don't give responses that show random id numbers, and if you dont get a proper response, just say 'I am sorry, I could not find the information you are looking for'
+      Based on the following SQL query results and chat history, generate a contextual response.
       
-      User Query: #{user_query}
+      Chat History:
+      #{history_context}
       
+      Current Query: #{user_query}
+            
       SQL Query Results:
       #{results_text}
       """
