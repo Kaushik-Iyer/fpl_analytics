@@ -19,6 +19,11 @@ update_fixtures_job:
   queue: default
 
 update_gameweek_stats_job:
-  cron: "0 * * * *"
+  cron: "0 0 * * *"
   class: "UpdateGameweekStatsJob"
+  queue: default
+
+live_gameweek_stats_job:
+  cron: "*/5 * * * *"
+  class: "LiveGameweekStatsJob"
   queue: default
