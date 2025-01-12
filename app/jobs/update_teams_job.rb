@@ -1,5 +1,6 @@
-class UpdateTeamsJob < ApplicationJob
-    queue_as :default
+class UpdateTeamsJob
+    include Sidekiq::Worker
+    sidekiq_options queue: 'default'
 
     def perform
         StaticImporter.teams_import

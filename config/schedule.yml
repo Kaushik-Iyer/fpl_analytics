@@ -1,0 +1,24 @@
+update_teams_job:
+  cron: "0 * * * *"
+  class: "UpdateTeamsJob"
+  queue: default
+
+update_players_job:
+  cron: "0 * * * *"
+  class: "UpdatePlayersJob"
+  queue: default
+
+update_gameweeks_job:
+  cron: "0 * * * *"
+  class: "UpdateGameweeksJob"
+  queue: default
+
+update_fixtures_job:
+  cron: "0 * * * *"
+  class: "UpdateFixturesJob"
+  queue: default
+
+update_gameweek_stats_job:
+  cron: "0 * * * *"
+  class: "UpdateGameweekStatsJob"
+  queue: default

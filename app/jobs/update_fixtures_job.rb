@@ -1,8 +1,9 @@
 # app/jobs/update_fixtures_job.rb
 require 'http'
 
-class UpdateFixturesJob < ApplicationJob
-    queue_as :default
+class UpdateFixturesJob
+    include Sidekiq::Worker
+    sidekiq_options queue: 'default'
   
     def perform
       response = HTTP.get("https://fantasy.premierleague.com/api/fixtures/")
