@@ -1,0 +1,31 @@
+<% content_for :title, "Players - FPL Analytics" %>
+<% content_for :page_title, "Players Overview" %>
+
+<!-- Top Performers -->
+<turbo-frame id="player_top_performers" src="<%= players_top_performers_path %>">
+  <div class="bg-white shadow-md rounded p-4">
+    <p>Loading Top Performers...</p>
+  </div>
+</turbo-frame>
+
+<!-- Player Search -->
+<turbo-frame id="player_search">
+  <div class="bg-white p-4 rounded-lg shadow" data-controller="autocomplete">
+    <input type="text" 
+           placeholder="Search for a player..." 
+           class="w-full p-2 border rounded" 
+           data-autocomplete-target="input" 
+           data-action="input->autocomplete#search keydown->autocomplete#navigate">
+    <div data-autocomplete-target="results" 
+         class="relative w-full bg-white border rounded mt-1">
+    </div>
+  </div>
+</turbo-frame>
+
+<!-- Player Performance -->
+<turbo-frame id="player_performance">
+  <div class="bg-white shadow-md rounded p-4">
+    <h2 class="text-lg font-bold mb-2">Player Performance</h2>
+    <!-- Performance content will load here -->
+  </div>
+</turbo-frame>

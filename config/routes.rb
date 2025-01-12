@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   root "home#index"
-
+  resources :players, only: [:index]
   get 'teams/standings', to: 'teams#standings'
   get 'players/top_performers', to: 'players#top_performers'
   get 'fixtures/upcoming', to: 'fixtures#upcoming'
@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get 'players/in_form_filter', to: 'players#in_form_filter'
   get 'managers/show', to: 'managers#show'
   post 'chat/respond', to: 'chat#respond'
+  get 'players/unavailable', to: 'players#unavailable'
 
   # Mount the Sidekiq web UI at /sidekiq
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|

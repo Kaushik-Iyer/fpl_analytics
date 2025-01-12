@@ -5,6 +5,14 @@ class Player < ApplicationRecord
   has_many :gameweeks, through: :gameweek_stats
 
   validates :web_name, presence: true
+  
+  def now_cost
+    read_attribute(:now_cost) / 10.0
+  end
+
+  def raw_cost
+    read_attribute(:now_cost)
+  end
 
   def fixtures
     team.fixtures

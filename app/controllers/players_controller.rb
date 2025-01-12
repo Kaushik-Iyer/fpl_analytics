@@ -1,5 +1,8 @@
 class PlayersController < ApplicationController
 
+  def index
+  end
+
   def top_performers
     @players = Player.order(total_points: :desc).limit(10)
     render partial: 'players/top_performers', locals: { players: @players }, layout: false
@@ -29,18 +32,19 @@ class PlayersController < ApplicationController
   def in_form_players
     position_id = params[:position_id]
     team_id = params[:team_id]
-
+    current_gw = Gameweek.current_gameweek.id
+    
     @top_scorers = Player.joins(:gameweek_stats)
-                        .where('gameweek_stats.gameweek_id > ?', Gameweek.current_gameweek.id - 5)
+                        .where('gameweek_stats.gameweek_id > ?', current_gw - 4)  # Changed > to >=
                         .yield_self { |scope| position_id.present? ? scope.where(position_id: position_id) : scope }
                         .yield_self { |scope| team_id.present? ? scope.where(team_id: team_id) : scope }
                         .group('players.id')
                         .select('players.*, SUM(gameweek_stats.total_points) as form_points')
                         .order('form_points DESC')
                         .limit(3)
-
+  
     @price_risers = Player.joins(:gameweek_stats)
-                        .where('gameweek_stats.gameweek_id > ?', Gameweek.current_gameweek.id - 5)
+                        .where('gameweek_stats.gameweek_id > ?', current_gw - 4)  # Changed > to >=
                         .yield_self { |scope| position_id.present? ? scope.where(position_id: position_id) : scope }
                         .yield_self { |scope| team_id.present? ? scope.where(team_id: team_id) : scope }
                         .group('players.id')
@@ -75,4 +79,13 @@ class PlayersController < ApplicationController
     end
   end
 
+  def unavailable
+    @unavailable_players = Player.where("status != ?", "a")
+                                .includes(:team)
+                                .order(total_points: :desc)
+                                .page(params[:page])
+                                .per(10)
+    render partial: 'players/unavailable_players', 
+           locals: { players: @unavailable_players }
+  end
 end

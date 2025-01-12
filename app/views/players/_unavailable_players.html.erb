@@ -1,0 +1,36 @@
+<turbo-frame id="unavailable_players">
+  <div class="bg-white shadow-md rounded p-4">
+    <h2 class="text-lg font-bold mb-4">Unavailable Players</h2>
+    <div class="overflow-hidden">
+      <div class="max-h-[400px] overflow-y-auto">
+        <table class="min-w-full table-fixed">
+          <thead class="bg-gray-50 sticky top-0">
+            <tr>
+              <th class="w-1/4 px-4 py-2 text-left">Player</th>
+              <th class="w-1/4 px-4 py-2 text-left">Team</th>
+              <th class="w-1/4 px-4 py-2 text-left">Status</th>
+              <th class="w-1/4 px-4 py-2 text-left">Return</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <% players.each do |player| %>
+              <tr class="hover:bg-gray-50">
+                <td class="px-4 py-2 truncate"><%= player.web_name %></td>
+                <td class="px-4 py-2 truncate"><%= player.team.name %></td>
+                <td class="px-4 py-2">
+                  <span class="<%= player.status == 'i' ? 'text-red-600' : 'text-yellow-600' %>">
+                    <%= player.status == 'i' ? 'Injured' : 'Suspended' %>
+                  </span>
+                </td>
+                <td class="px-4 py-2 truncate"><%= player.news %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-4 flex justify-center">
+        <%= paginate players, remote: true %>
+      </div>
+    </div>
+  </div>
+</turbo-frame>
