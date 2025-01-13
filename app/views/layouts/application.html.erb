@@ -9,6 +9,11 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      .grid-span-2 {
+        grid-column: span 2;
+      }
+    </style>
   </head>
   <body class="bg-gray-100 font-sans">
     <%= render "shared/header" %>

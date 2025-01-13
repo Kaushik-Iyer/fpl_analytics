@@ -9,17 +9,29 @@
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50 sticky top-0">
               <tr>
-                <th scope="col" class="w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player</th>
-                <th scope="col" class="w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Team</th>
-                <th scope="col" class="w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                <th scope="col" class="w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Return</th>
+                <th scope="col" class="w-2/5 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player</th>
+                <th scope="col" class="w-1/5 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Team</th>
+                <th scope="col" class="w-1/5 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                <th scope="col" class="w-1/5 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Return</th>
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
               <% players.each do |player| %>
                 <tr class="hover:bg-gray-100 transition-colors duration-150 ease-in-out">
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= player.web_name %></td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= player.team.name %></td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <%= image_tag player.image_url, class: "w-10 h-10 rounded-full mr-3 object-cover" %>
+                      <div>
+                        <div class="text-sm font-medium text-gray-900"><%= player.web_name %></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <%= image_tag player.team.image_url, class: "w-6 h-6 mr-2 object-contain" %>
+                      <span class="text-sm text-gray-900"><%= player.team.name %></span>
+                    </div>
+                  </td>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <%= player.status == 'i' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800' %>">
                       <%= player.status == 'i' ? 'Injured' : 'Suspended' %>
