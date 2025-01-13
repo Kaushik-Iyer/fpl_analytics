@@ -46,15 +46,46 @@ export default class extends Controller {
           label: player.web_name,
           data: player.points_history,
           borderColor: this.getColor(index),
-          fill: false,
-          spanGaps: true // Edge case: if a player misses a gameweek, the line will be broken
+          backgroundColor: this.getColor(index, 0.1),
+          borderWidth: 2,
+          tension: 0.1,
+          fill: true,
+          spanGaps: true
         }))
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              boxWidth: 12,
+              padding: 15,
+              usePointStyle: true,
+              font: {
+                size: 11
+              }
+            }
+          }
+        },
         scales: {
           y: {
-            title: { display: true, text: 'Points' }
+            title: {
+              display: true,
+              text: 'Points',
+              font: {
+                size: 11
+              }
+            },
+            grid: {
+              color: 'rgba(0,0,0,0.05)'
+            }
+          },
+          x: {
+            grid: {
+              display: false
+            }
           }
         }
       }
@@ -70,29 +101,63 @@ export default class extends Controller {
         labels: this.gameweeksValue,
         datasets: this.priceRisersValue.map((player, index) => ({
           label: player.web_name,
-          data: player.value_history, // Access the data directly
+          data: player.value_history,
           borderColor: this.getColor(index),
-          fill: false,
+          backgroundColor: this.getColor(index, 0.1),
+          borderWidth: 2,
+          tension: 0.1,
+          fill: true,
           spanGaps: true
         }))
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              boxWidth: 12,
+              padding: 15,
+              usePointStyle: true,
+              font: {
+                size: 11
+              }
+            }
+          }
+        },
         scales: {
           y: {
-            title: { display: true, text: 'Value' }
+            title: {
+              display: true,
+              text: 'Value',
+              font: {
+                size: 11
+              }
+            },
+            grid: {
+              color: 'rgba(0,0,0,0.05)'
+            }
+          },
+          x: {
+            grid: {
+              display: false
+            }
           }
         }
       }
     })
   }
 
-  getColor(index) {
+  getColor(index, alpha = 1) {
     const colors = [
-      'rgb(75, 192, 192)',
-      'rgb(153, 102, 255)',
-      'rgb(255, 99, 132)'
+      `rgba(59, 130, 246, ${alpha})`,   // Blue
+      `rgba(16, 185, 129, ${alpha})`,   // Green
+      `rgba(239, 68, 68, ${alpha})`,    // Red
+      `rgba(245, 158, 11, ${alpha})`,   // Amber
+      `rgba(139, 92, 246, ${alpha})`    // Purple
     ]
     return colors[index % colors.length]
   }
 }
+

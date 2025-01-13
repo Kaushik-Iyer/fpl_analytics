@@ -1,18 +1,22 @@
 <turbo-frame id="row2col3"> 
-<div class="bg-white shadow-md rounded p-4" 
-     data-controller="form-charts"
-     data-form-charts-top-scorers-value="<%= @top_scorers.map { |player| player.attributes.merge(points_history: player.points_history) }.to_json %>"
-     data-form-charts-price-risers-value="<%= @price_risers.map { |player| player.attributes.merge(value_history: player.value_history) }.to_json %>"
-     data-form-charts-gameweeks-value="<%= (Gameweek.current_gameweek.id-5..Gameweek.current_gameweek.id-1).to_a.to_json %>"
-     data-form-charts-selected-position-value="<%= position_id %>"
-     data-form-charts-selected-team-value="<%= team_id %>">
-  
-    <div class="mb-4">
-      <h2 class="text-lg font-bold mb-2">Top Form Players</h2>
-      <div class="flex space-x-4">
+  <div class="bg-white shadow-lg rounded-lg overflow-hidden h-full" 
+       data-controller="form-charts"
+       data-form-charts-top-scorers-value="<%= @top_scorers.map { |player| player.attributes.merge(points_history: player.points_history) }.to_json %>"
+       data-form-charts-price-risers-value="<%= @price_risers.map { |player| player.attributes.merge(value_history: player.value_history) }.to_json %>"
+       data-form-charts-gameweeks-value="<%= (Gameweek.current_gameweek.id-5..Gameweek.current_gameweek.id-1).to_a.to_json %>"
+       data-form-charts-selected-position-value="<%= position_id %>"
+       data-form-charts-selected-team-value="<%= team_id %>">
+    
+    <div class="bg-yellow-600 text-white px-6 py-4">
+      <h2 class="text-xl font-bold">Top Form Players</h2>
+    </div>
+
+    <div class="p-6">
+      <!-- Filters -->
+      <div class="flex space-x-4 mb-6">
         <select data-form-charts-target="positionSelect"
                 data-action="change->form-charts#filter"
-                class="rounded border p-1">
+                class="w-1/2 rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50">
           <option value="" <%= 'selected' if position_id.blank? %>>All Positions</option>
           <option value="4" <%= 'selected' if position_id == '4' %>>Forwards</option>
           <option value="3" <%= 'selected' if position_id == '3' %>>Midfielders</option>
@@ -22,25 +26,31 @@
         
         <select data-form-charts-target="teamSelect"
                 data-action="change->form-charts#filter"
-                class="rounded border p-1">
+                class="w-1/2 rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring focus:ring-yellow-200 focus:ring-opacity-50">
           <option value="" <%= 'selected' if team_id.blank? %>>All Teams</option>
           <% Team.all.each do |team| %>
             <option value="<%= team.id %>" <%= 'selected' if team_id == team.id.to_s %>><%= team.name %></option>
           <% end %>
         </select>
       </div>
-    </div>
 
-  <div class="grid grid-cols-1 gap-4">
-    <div>
-      <h3 class="font-semibold mb-2">Most Points scored across previous 5 Gameweeks</h3>
-      <canvas data-form-charts-target="points"></canvas>
-    </div>
-    
-    <div>
-      <h3 class="font-semibold mb-2" >Biggest price changes across previous 5 Gameweeks</h3>
-      <canvas data-form-charts-target="value"></canvas>
+      <!-- Charts -->
+      <div class="space-y-6 min-h-[400px]">
+        <div>
+          <h3 class="text-sm font-medium text-gray-700 mb-3">Most Points scored across previous 5 Gameweeks</h3>
+          <div class="bg-white h-[200px]">
+            <canvas data-form-charts-target="points"></canvas>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-sm font-medium text-gray-700 mb-3">Biggest price changes across previous 5 Gameweeks</h3>
+          <div class="bg-white h-[200px]">
+            <canvas data-form-charts-target="value"></canvas>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 </turbo-frame>
+
