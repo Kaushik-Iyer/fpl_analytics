@@ -9,11 +9,11 @@
         </turbo-frame>
 
         <!-- Row 1, Column 3: Upcoming Fixtures -->
-        <turbo-frame id="row1col3" src="<%= fixtures_upcoming_path %>">
-          <div class="bg-white shadow-md rounded p-4">
-            <p>Loading Upcoming Fixtures...</p>
-          </div>
-        </turbo-frame>
+      <turbo-frame id="upcoming_fixtures" src="<%= fixtures_upcoming_path %>" class="md:col-span-2 lg:col-span-1">
+        <div class="bg-white shadow-md rounded p-4">
+          <p>Loading Upcoming Fixtures...</p>
+        </div>
+      </turbo-frame>
 
         <!-- Form Charts -->
         <turbo-frame id="row2col3" src="<%= players_in_form_players_path %>">

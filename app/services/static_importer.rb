@@ -41,7 +41,6 @@ class StaticImporter
         strength_defence_home: team_data['strength_defence_home'],
         strength_defence_away: team_data['strength_defence_away'],
         played: team_data['played'],
-        points: team_data['points'],
         image_url: "https://resources.premierleague.com/premierleague/badges/50/t#{code}.png"
         )
       end
