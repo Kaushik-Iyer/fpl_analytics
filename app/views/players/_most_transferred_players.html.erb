@@ -15,17 +15,23 @@
             <tr>
               <td class="border px-4 py-2">
                 <% if transferred_in[i] %>
-                  <div class="flex items-center">
+                  <div class="flex items-center group relative">
                     <span><%= transferred_in[i].web_name %></span>
                     <span class="text-success ml-2">(+<%= transferred_in[i].transfers_balance %>)</span>
+                    <div class="hidden group-hover:block absolute -top-16 left-0 bg-white p-2 rounded shadow-lg z-50">
+                      <%= image_tag transferred_in[i].image_url, class: "w-14 h-14 rounded-full" %>
+                    </div>
                   </div>
                 <% end %>
               </td>
               <td class="border px-4 py-2">
                 <% if transferred_out[i] %>
-                  <div class="flex items-center">
+                  <div class="flex items-center group relative">
                     <span><%= transferred_out[i].web_name %></span>
                     <span class="text-danger ml-2">(-<%= transferred_out[i].transfers_balance %>)</span>
+                    <div class="hidden group-hover:block absolute -top-16 left-0 bg-white p-2 rounded shadow-lg z-50">
+                      <%= image_tag transferred_out[i].image_url, class: "w-14 h-14 rounded-full" %>
+                    </div>
                   </div>
                 <% end %>
               </td>

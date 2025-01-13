@@ -1,8 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="autocomplete"
 export default class extends Controller {
-  static targets = ["input", "results"]
+  static targets = ["input", "results", "selectedPlayer", "playerImage"]
 
   connect() {
     this.results = []
@@ -35,7 +34,19 @@ export default class extends Controller {
   }
 
   select(event) {
-    const playerId = event.currentTarget.dataset.playerId
+    const player = event.currentTarget
+    const playerId = player.dataset.playerId
+
+    // Update input and clear results
+    this.inputTarget.value = player.textContent
+    this.resultsTarget.innerHTML = ''
+
+    // Show player image
+    console.log("Image URL:", player.dataset.playerImage) // Debug
+    this.selectedPlayerTarget.classList.remove('hidden')
+    this.playerImageTarget.src = player.dataset.playerImage
+
+    // Fetch performance
     this.fetchPlayerPerformance(playerId)
   }
 

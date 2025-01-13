@@ -28,6 +28,7 @@ class StaticImporter
     ActiveRecord::Base.transaction do
       teams_data.each do |team_data|
       Team.find_or_initialize_by(id: team_data['id']).tap do |team|
+        code = team_data['code']
         team.update!(
         name: team_data['name'],
         short_name: team_data['short_name'],
@@ -40,7 +41,8 @@ class StaticImporter
         strength_defence_home: team_data['strength_defence_home'],
         strength_defence_away: team_data['strength_defence_away'],
         played: team_data['played'],
-        points: team_data['points']
+        points: team_data['points'],
+        image_url: "https://resources.premierleague.com/premierleague/badges/50/t#{code}.png"
         )
       end
       end
