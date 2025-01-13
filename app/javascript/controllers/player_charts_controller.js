@@ -65,14 +65,13 @@ export default class extends Controller {
   }
 
   initValueChart() {
-    const adjustedValues = this.valuesValue.map(value => value / 10)
     new Chart(this.valueTarget, {
       type: 'line',
       data: {
         labels: this.labelsValue,
         datasets: [{
           label: 'Value',
-          data: adjustedValues,
+          data: this.valuesValue,
           borderColor: 'rgba(153, 102, 255, 1)',
           backgroundColor: 'rgba(153, 102, 255, 0.2)',
           fill: true,

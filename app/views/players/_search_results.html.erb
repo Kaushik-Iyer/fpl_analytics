@@ -2,7 +2,8 @@
 <% @players.each do |player| %>
   <div class="p-2 hover:bg-gray-100 cursor-pointer"
        data-action="click->autocomplete#select"
-       data-player-id="<%= player.id %>">
+       data-player-id="<%= player.id %>"
+       data-player-image="<%= player.image_url %>">
     <%= player.web_name %> - <%= player.team.name %>
   </div>
 <% end %>

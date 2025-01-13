@@ -28,6 +28,7 @@ class StaticImporter
     ActiveRecord::Base.transaction do
       teams_data.each do |team_data|
       Team.find_or_initialize_by(id: team_data['id']).tap do |team|
+        code = team_data['code']
         team.update!(
         name: team_data['name'],
         short_name: team_data['short_name'],
@@ -40,7 +41,7 @@ class StaticImporter
         strength_defence_home: team_data['strength_defence_home'],
         strength_defence_away: team_data['strength_defence_away'],
         played: team_data['played'],
-        points: team_data['points']
+        image_url: "https://resources.premierleague.com/premierleague/badges/50/t#{code}.png"
         )
       end
       end
@@ -80,6 +81,7 @@ class StaticImporter
     ActiveRecord::Base.transaction do
       players_data.each do |player_data|
         Player.find_or_initialize_by(id: player_data['id']).tap do |player|
+          code = player_data['code']
           player.update!(
             first_name: player_data['first_name'],
             second_name: player_data['second_name'],
@@ -97,7 +99,9 @@ class StaticImporter
             news_added: player_data['news_added'],
             form: player_data['form'],
             points_per_game: player_data['points_per_game'],
-            selected_by_percent: player_data['selected_by_percent']
+            selected_by_percent: player_data['selected_by_percent'],
+            code: code,
+            image_url: "https://resources.premierleague.com/premierleague/photos/players/110x140/p#{code}.png"
           )
         end
       end
@@ -105,187 +109,6 @@ class StaticImporter
   rescue StandardError => e
     Rails.logger.error("Error importing players: #{e.message}")
     raise e
-  end
-
-  private
-
-  def self.teams_format()
-    #=> Team(id: integer, name: string, short_name: string, code: string, strength: string, strength_overall_home: string, strength_overall_away: string, strength_attack_home: string, strength_attack_away: string, strength_defence_home: string, strength_defence_away: string, played: string, points: string, created_at: datetime, updated_at: datetime)
-
-    {
-      "code": 3,
-      "draw": 0,
-      "form": null,
-      "id": 1,
-      "loss": 0,
-      "name": "Arsenal",
-      "played": 0,
-      "points": 0,
-      "position": 0,
-      "short_name": "ARS",
-      "strength": 4,
-      "team_division": null,
-      "unavailable": false,
-      "win": 0,
-      "strength_overall_home": 1250,
-      "strength_overall_away": 1360,
-      "strength_attack_home": 1260,
-      "strength_attack_away": 1370,
-      "strength_defence_home": 1240,
-      "strength_defence_away": 1350,
-      "pulse_id": 1
-  }
-  end
-
-  def self.players_format()
-    #=> Player(id: integer, first_name: string, second_name: string, web_name: string, team_id: integer, element_type: integer, now_cost: decimal, total_points: integer, goals_scored: integer, assists: integer, clean_sheets: integer, minutes: integer, status: string, news: string, news_added: datetime, form: float, points_per_game: float, selected_by_percent: float, created_at: datetime, updated_at: datetime)
-
-      {
-      "can_transact": true,
-      "can_select": true,
-      "chance_of_playing_next_round": 100,
-      "chance_of_playing_this_round": 100,
-      "code": 223094,
-      "cost_change_event": -1,
-      "cost_change_event_fall": 1,
-      "cost_change_start": -2,
-      "cost_change_start_fall": 2,
-      "dreamteam_count": 3,
-      "element_type": 4,
-      "ep_next": "4.1",
-      "ep_this": "4.1",
-      "event_points": 2,
-      "first_name": "Erling",
-      "form": "3.6",
-      "id": 351,
-      "in_dreamteam": true,
-      "news": "",
-      "news_added": "2024-09-13T15:00:06.985607Z",
-      "now_cost": 148,
-      "photo": "223094.jpg",
-      "points_per_game": "6.0",
-      "removed": false,
-      "second_name": "Haaland",
-      "selected_by_percent": "34.5",
-      "special": false,
-      "squad_number": null,
-      "status": "a",
-      "team": 13,
-      "team_code": 43,
-      "total_points": 102,
-      "transfers_in": 2864316,
-      "transfers_in_event": 15025,
-      "transfers_out": 4902372,
-      "transfers_out_event": 246194,
-      "value_form": "0.2",
-      "value_season": "6.9",
-      "web_name": "Haaland",
-      "region": 161,
-      "team_join_date": "2022-07-01",
-      "minutes": 1529,
-      "goals_scored": 13,
-      "assists": 1,
-      "clean_sheets": 3,
-      "goals_conceded": 25,
-      "own_goals": 0,
-      "penalties_saved": 0,
-      "penalties_missed": 0,
-      "yellow_cards": 2,
-      "red_cards": 0,
-      "saves": 0,
-      "bonus": 15,
-      "bps": 451,
-      "influence": "534.8",
-      "creativity": "156.8",
-      "threat": "919.0",
-      "ict_index": "161.3",
-      "starts": 17,
-      "expected_goals": "13.10",
-      "expected_assists": "0.91",
-      "expected_goal_involvements": "14.01",
-      "expected_goals_conceded": "25.31",
-      "influence_rank": 5,
-      "influence_rank_type": 1,
-      "creativity_rank": 127,
-      "creativity_rank_type": 13,
-      "threat_rank": 2,
-      "threat_rank_type": 1,
-      "ict_index_rank": 4,
-      "ict_index_rank_type": 1,
-      "corners_and_indirect_freekicks_order": null,
-      "corners_and_indirect_freekicks_text": "",
-      "direct_freekicks_order": 3,
-      "direct_freekicks_text": "",
-      "penalties_order": 1,
-      "penalties_text": "",
-      "expected_goals_per_90": 0.77,
-      "saves_per_90": 0,
-      "expected_assists_per_90": 0.05,
-      "expected_goal_involvements_per_90": 0.82,
-      "expected_goals_conceded_per_90": 1.49,
-      "goals_conceded_per_90": 1.47,
-      "now_cost_rank": 1,
-      "now_cost_rank_type": 1,
-      "form_rank": 83,
-      "form_rank_type": 14,
-      "points_per_game_rank": 7,
-      "points_per_game_rank_type": 2,
-      "selected_rank": 4,
-      "selected_rank_type": 2,
-      "starts_per_90": 1,
-      "clean_sheets_per_90": 0.18
-    }
-  end
-  def self.gameweek_format()
-    #irb(main):009:0> Gameweek => Gameweek(id: integer, name: string, deadline_time: datetime, average_entry_score: integer, finished: boolean, is_current: boolean, is_next: boolean, is_previous: boolean, highest_score: integer, most_selected: integer, most_transferred_in: integer, top_element: integer, transfers_made: integer, created_at: datetime, updated_at: datetime)
-    {
-      "id": 1,
-      "name": "Gameweek 1",
-      "deadline_time": "2024-08-16T17:30:00Z",
-      "release_time": null,
-      "average_entry_score": 57,
-      "finished": true,
-      "data_checked": true,
-      "highest_scoring_entry": 3546234,
-      "deadline_time_epoch": 1723829400,
-      "deadline_time_game_offset": 0,
-      "highest_score": 127,
-      "is_previous": false,
-      "is_current": false,
-      "is_next": false,
-      "cup_leagues_created": false,
-      "h2h_ko_matches_created": false,
-      "can_enter": false,
-      "can_manage": false,
-      "released": true,
-      "ranked_count": 8597356,
-      "overrides": {
-          "rules": {},
-          "scoring": {},
-          "element_types": [],
-          "pick_multiplier": null
-      },
-      "chip_plays": [
-          {
-              "chip_name": "bboost",
-              "num_played": 144974
-          },
-          {
-              "chip_name": "3xc",
-              "num_played": 221430
-          }
-      ],
-      "most_selected": 401,
-      "most_transferred_in": 27,
-      "top_element": 328,
-      "top_element_info": {
-          "id": 328,
-          "points": 14
-      },
-      "transfers_made": 0,
-      "most_captained": 351,
-      "most_vice_captained": 351
-  }
   end
 end
   

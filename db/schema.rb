@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_10_030729) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_13_005658) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "vector"
@@ -127,6 +127,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_10_030729) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.halfvec "embedding", limit: 768
+    t.integer "code"
+    t.string "image_url"
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
@@ -163,6 +165,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_10_030729) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.halfvec "embedding", limit: 768
+    t.string "image_url"
   end
 
   add_foreign_key "gameweek_stats", "gameweeks"
