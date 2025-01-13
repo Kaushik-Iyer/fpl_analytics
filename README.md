@@ -29,6 +29,7 @@ Commands to run in local/production based on what code is being changed:
 General production commands:
 `su - rails`
 `systemctl restart rails.service`
+`systemctl restart sidekiq`
 `systemctl daemon-reload`
 
 (Source: https://marketplace.digitalocean.com/apps/ruby-on-rails?ipAddress=159.65.164.43#getting-started)

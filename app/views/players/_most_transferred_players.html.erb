@@ -1,0 +1,38 @@
+<turbo-frame id="most_transferred_players">
+  <div class="bg-white shadow-md rounded p-4">
+    <h2 class="text-lg font-bold mb-2">Player Transfer Trends</h2>
+    
+    <div class="table-responsive">
+      <table class="table-auto w-full">
+        <thead>
+          <tr>
+            <th class="px-4 py-2 text-success">Most Transferred In</th>
+            <th class="px-4 py-2 text-danger">Most Transferred Out</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% 5.times do |i| %>
+            <tr>
+              <td class="border px-4 py-2">
+                <% if transferred_in[i] %>
+                  <div class="flex items-center">
+                    <span><%= transferred_in[i].web_name %></span>
+                    <span class="text-success ml-2">(+<%= transferred_in[i].transfers_balance %>)</span>
+                  </div>
+                <% end %>
+              </td>
+              <td class="border px-4 py-2">
+                <% if transferred_out[i] %>
+                  <div class="flex items-center">
+                    <span><%= transferred_out[i].web_name %></span>
+                    <span class="text-danger ml-2">(-<%= transferred_out[i].transfers_balance %>)</span>
+                  </div>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</turbo-frame>

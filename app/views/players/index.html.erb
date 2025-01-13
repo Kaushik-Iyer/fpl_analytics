@@ -2,7 +2,7 @@
 <% content_for :page_title, "Players Overview" %>
 
 <!-- Top Performers -->
-<turbo-frame id="player_top_performers" src="<%= players_top_performers_path %>">
+<turbo-frame id="player_top_performers" src="<%= players_top_performers_path %>"> 
   <div class="bg-white shadow-md rounded p-4">
     <p>Loading Top Performers...</p>
   </div>
@@ -27,5 +27,11 @@
   <div class="bg-white shadow-md rounded p-4">
     <h2 class="text-lg font-bold mb-2">Player Performance</h2>
     <!-- Performance content will load here -->
+  </div>
+</turbo-frame>
+
+<turbo-frame id="most_transferred_players" src="<%=  players_most_transferred_path  %>">
+  <div class="bg-white shadow-md rounded p-4">
+    <p>Loading Player Transfer Trends...</p>
   </div>
 </turbo-frame>

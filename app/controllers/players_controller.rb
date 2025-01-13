@@ -88,4 +88,19 @@ class PlayersController < ApplicationController
     render partial: 'players/unavailable_players', 
            locals: { players: @unavailable_players }
   end
+
+  def most_transferred
+    latest_gameweek = Gameweek.where(finished: true).last
+    @transferred_players = Player.select('players.*, gameweek_stats.transfers_balance')
+                               .joins(:gameweek_stats)
+                               .where(gameweek_stats: { gameweek_id: latest_gameweek.id })
+                               .order(transfers_balance: :desc)
+                               .limit(10)
+    
+    @transferred_in = @transferred_players.first(5)
+    @transferred_out = @transferred_players.last(5)
+    
+    render partial: 'players/most_transferred_players',
+           locals: { transferred_in: @transferred_in, transferred_out: @transferred_out }
+  end
 end
