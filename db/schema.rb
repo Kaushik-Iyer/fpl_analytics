@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_13_005658) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_14_200304) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "vector"
@@ -86,6 +86,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_13_005658) do
     t.integer "own_goals"
     t.integer "starts"
     t.index ["gameweek_id"], name: "index_gameweek_stats_on_gameweek_id"
+    t.index ["player_id", "gameweek_id"], name: "index_gameweek_stats_on_player_id_and_gameweek_id", unique: true
     t.index ["player_id"], name: "index_gameweek_stats_on_player_id"
   end
 

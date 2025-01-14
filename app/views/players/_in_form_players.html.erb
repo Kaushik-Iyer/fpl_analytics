@@ -3,7 +3,7 @@
        data-controller="form-charts"
        data-form-charts-top-scorers-value="<%= @top_scorers.map { |player| player.attributes.merge(points_history: player.points_history) }.to_json %>"
        data-form-charts-price-risers-value="<%= @price_risers.map { |player| player.attributes.merge(value_history: player.value_history) }.to_json %>"
-       data-form-charts-gameweeks-value="<%= (Gameweek.current_gameweek.id-5..Gameweek.current_gameweek.id-1).to_a.to_json %>"
+       data-form-charts-gameweeks-value="<%= (Gameweek.current_gameweek.id-4..Gameweek.current_gameweek.id).to_a.to_json %>"
        data-form-charts-selected-position-value="<%= position_id %>"
        data-form-charts-selected-team-value="<%= team_id %>">
     

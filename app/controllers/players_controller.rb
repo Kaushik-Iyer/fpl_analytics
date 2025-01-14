@@ -35,7 +35,7 @@ class PlayersController < ApplicationController
     current_gw = Gameweek.current_gameweek.id
     
     @top_scorers = Player.joins(:gameweek_stats)
-                        .where('gameweek_stats.gameweek_id > ?', current_gw - 4)  # Changed > to >=
+                        .where('gameweek_stats.gameweek_id BETWEEN ? AND ?', current_gw - 4, current_gw)
                         .yield_self { |scope| position_id.present? ? scope.where(position_id: position_id) : scope }
                         .yield_self { |scope| team_id.present? ? scope.where(team_id: team_id) : scope }
                         .group('players.id')
@@ -44,7 +44,7 @@ class PlayersController < ApplicationController
                         .limit(3)
   
     @price_risers = Player.joins(:gameweek_stats)
-                        .where('gameweek_stats.gameweek_id > ?', current_gw - 4)  # Changed > to >=
+                        .where('gameweek_stats.gameweek_id BETWEEN ? AND ?', current_gw - 4, current_gw)
                         .yield_self { |scope| position_id.present? ? scope.where(position_id: position_id) : scope }
                         .yield_self { |scope| team_id.present? ? scope.where(team_id: team_id) : scope }
                         .group('players.id')

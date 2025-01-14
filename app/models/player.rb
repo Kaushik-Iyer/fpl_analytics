@@ -32,8 +32,8 @@ class Player < ApplicationRecord
     end
   end
 
-  # create vector embedding for player using gemini api
-  def create_embedding
-    
+  def update_points_live
+    points = gameweek_stats.sum(:total_points)
+    update(total_points: points)
   end
 end

@@ -18,7 +18,7 @@ class Gameweek < ApplicationRecord
     end
 
     def self.current_gameweek
-        Gameweek.where(finished: false).first
+        Gameweek.where(finished: true).last
     end
 
     def self.live

@@ -3,7 +3,7 @@ class LiveGameweekStatsJob
     sidekiq_options queue: 'default', retry: 3
   
     def perform
-      return unless active_gameweek?
+      return unless Gameweek.live.present?
       
       current_gameweek = Gameweek.live
       Rails.logger.info "Processing live stats for gameweek #{current_gameweek.id}"
@@ -24,6 +24,12 @@ class LiveGameweekStatsJob
         Rails.logger.error "Failed to update live stats: #{e.message}"
         raise
       end
+
+      # Update player points
+      Player.all.each do |player|
+        player.update_points_live
+      end
+
     end
     
     private
@@ -66,13 +72,5 @@ class LiveGameweekStatsJob
           returning: false
         )
       end
-    end
-  
-    def active_gameweek?
-      current_gameweek = Gameweek.live
-      return false unless current_gameweek
-      
-      current_gameweek.deadline_time <= Time.current && 
-        current_gameweek.finished.nil?
     end
   end
