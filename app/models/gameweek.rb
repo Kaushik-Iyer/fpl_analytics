@@ -22,6 +22,6 @@ class Gameweek < ApplicationRecord
     end
 
     def self.live
-        where("deadline_time <= ? AND finished IS NULL", Time.current).order(deadline_time: :desc).first
+        where("deadline_time <= ? AND finished IS false", Time.current).order(deadline_time: :desc).first
     end
 end
