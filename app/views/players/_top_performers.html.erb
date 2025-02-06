@@ -1,21 +1,44 @@
 <turbo-frame id="player_top_performers">
-    <div class="bg-white shadow-md rounded p-4">
-    <h2 class="text-lg font-bold mb-2">Top 10 Performers</h2>
-    <table class="table-auto w-full">
-        <thead>
-        <tr>
-            <th class="px-4 py-2">Name</th>
-            <th class="px-4 py-2">Total Points</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% players.each do |player| %>
-            <tr>
-            <td class="border px-4 py-2"><%= player.web_name %></td>
-            <td class="border px-4 py-2"><%= player.total_points %></td>
-            </tr>
-        <% end %>
-        </tbody>
-    </table>
+  <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="bg-blue-600 text-white px-6 py-4">
+      <h2 class="text-xl font-bold">Top Performers</h2>
     </div>
+    <div class="p-6">
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rank</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Team</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Position</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Points</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <% players.each_with_index do |player, index| %>
+              <tr class="<%= index.even? ? 'bg-gray-50' : 'bg-white' %> hover:bg-gray-100 transition-colors duration-150 ease-in-out">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= index + 1 %></td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <%= image_tag player.image_url, class: "h-10 w-10 rounded-full mr-3" %>
+                    <div class="text-sm font-medium text-gray-900"><%= player.web_name %></div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <%= image_tag player.team.image_url, class: "h-6 w-6 mr-2" %>
+                    <div class="text-sm text-gray-500"><%= player.team.name %></div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= player.position.singular_name %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600"><%= player.total_points %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </turbo-frame>
+

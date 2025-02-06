@@ -1,44 +1,55 @@
 <turbo-frame id="most_transferred_players">
-  <div class="bg-white shadow-md rounded p-4">
-    <h2 class="text-lg font-bold mb-2">Player Transfer Trends</h2>
+  <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="bg-blue-600 text-white px-6 py-4">
+      <h2 class="text-xl font-bold">Player Transfer Trends</h2>
+    </div>
     
-    <div class="table-responsive">
-      <table class="table-auto w-full">
-        <thead>
-          <tr>
-            <th class="px-4 py-2 text-success">Most Transferred In</th>
-            <th class="px-4 py-2 text-danger">Most Transferred Out</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% 5.times do |i| %>
+    <div class="p-6">
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
             <tr>
-              <td class="border px-4 py-2">
-                <% if transferred_in[i] %>
-                  <div class="flex items-center group relative">
-                    <span><%= transferred_in[i].web_name %></span>
-                    <span class="text-success ml-2">(+<%= transferred_in[i].transfers_balance %>)</span>
-                    <div class="hidden group-hover:block absolute -top-16 left-0 bg-white p-2 rounded shadow-lg z-50">
-                      <%= image_tag transferred_in[i].image_url, class: "w-14 h-14 rounded-full" %>
-                    </div>
-                  </div>
-                <% end %>
-              </td>
-              <td class="border px-4 py-2">
-                <% if transferred_out[i] %>
-                  <div class="flex items-center group relative">
-                    <span><%= transferred_out[i].web_name %></span>
-                    <span class="text-danger ml-2">(-<%= transferred_out[i].transfers_balance %>)</span>
-                    <div class="hidden group-hover:block absolute -top-16 left-0 bg-white p-2 rounded shadow-lg z-50">
-                      <%= image_tag transferred_out[i].image_url, class: "w-14 h-14 rounded-full" %>
-                    </div>
-                  </div>
-                <% end %>
-              </td>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Most Transferred In</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Most Transferred Out</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <% 5.times do |i| %>
+              <tr class="<%= i.even? ? 'bg-gray-50' : 'bg-white' %>">
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <% if transferred_in[i] %>
+                    <div class="flex items-center group relative">
+                      <div class="flex-shrink-0 h-10 w-10 relative">
+                        <%= image_tag transferred_in[i].image_url, class: "h-10 w-10 rounded-full" %>
+                        <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900"><%= transferred_in[i].web_name %></div>
+                        <div class="text-sm text-green-600">(+<%= transferred_in[i].transfers_balance %>)</div>
+                      </div>
+                    </div>
+                  <% end %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <% if transferred_out[i] %>
+                    <div class="flex items-center group relative">
+                      <div class="flex-shrink-0 h-10 w-10 relative">
+                        <%= image_tag transferred_out[i].image_url, class: "h-10 w-10 rounded-full" %>
+                        <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900"><%= transferred_out[i].web_name %></div>
+                        <div class="text-sm text-red-600">(-<%= transferred_out[i].transfers_balance %>)</div>
+                      </div>
+                    </div>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </turbo-frame>
+
