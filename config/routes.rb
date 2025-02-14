@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   post 'chat/respond', to: 'chat#respond'
   get 'players/unavailable', to: 'players#unavailable'
   get 'players/most_transferred', to: 'players#most_transferred'
+  get '/metrics', to: 'metrics#show'
 
   # Mount the Sidekiq web UI at /sidekiq
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|

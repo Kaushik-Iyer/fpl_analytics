@@ -11,6 +11,8 @@ gem 'pgvector'
 gem 'dotenv-rails'
 gem "kaminari"
 gem "neighbor" # for nearest neighbor search
+gem 'prometheus_exporter'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.5"
 
